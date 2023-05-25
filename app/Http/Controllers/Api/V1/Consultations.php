@@ -12,18 +12,23 @@ class Consultations extends Controller
     public function consultations(Request $request)
     {
         $society = Society::where(['login_tokens' => $request->query('token')])->first();
+        $consultation = Consultation::where(['society_id' => $society->id])->first();
+        $doctor = null;
+        $res = [];
+        if($consultation){
+            $doctor = $consultation->doctor;
+            $res = [
+                'id' => $consultation->id,
+                'status' => $consultation->status,
+                'disease_history' => $consultation->disease_history,
+                'current_symptoms' => $consultation->current_symptoms,
+                'doctor_notes' => $consultation->doctor_notes,
+                'doctor' => $doctor ?? null
+            ];
+        }
+
         return response()->json([
-            'consultation' => Consultation::where(['society_id' => $society->id])->get()->map(function(Consultation $consul){
-                $doctor = $consul->doctor;
-                return [
-                    'id' => $consul->id,
-                    'status' => $consul->status,
-                    'disease_history' => $consul->disease_history,
-                    'current_symptoms' => $consul->current_symptoms,
-                    'doctor_notes' => $consul->doctor_notes,
-                    'doctor' => $doctor ?? null
-                ];
-            })
+            'consultation' => $res
         ],200);
     }
     public function request_consultations(Request $request)
@@ -31,8 +36,8 @@ class Consultations extends Controller
         $society = Society::where(['login_tokens' => $request->query('token')])->first();
         $consul = new Consultation([
             'society_id' => $society->id,
-            'disease_history' => $request->disease_history ?? null,
-            'current_symptoms' => $request->current_symptoms ?? null,
+            'disease_history' => $request->disease_history ?? "",
+            'current_symptoms' => $request->current_symptoms ?? "",
         ]);
         if($consul->save()){
             return response()->json([

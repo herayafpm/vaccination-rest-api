@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('vaccine_id')->nullable();
             $table->unsignedBigInteger('doctor_id')->nullable();
             $table->unsignedBigInteger('officer_id')->nullable();
-            $table->enum('status',['pending','done'])->default('pending');
+            $table->enum('status',['pending','vaccinated'])->default('pending');
             $table->foreign('spot_id')->references('id')->on('spots');
             $table->foreign('society_id')->references('id')->on('societies');
             $table->foreign('vaccine_id')->references('id')->on('vaccines');

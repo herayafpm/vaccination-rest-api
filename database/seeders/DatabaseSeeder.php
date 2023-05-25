@@ -45,6 +45,22 @@ class DatabaseSeeder extends Seeder
             'capacity' => 3
         ]))->save();
 
+        (new Spot([
+            'regional_id' => 1,
+            'name' => 'Rumah Sakit Fitra',
+            'address' => 'Jl Banjarnegara',
+            'serve' => 2,
+            'capacity' => 3
+        ]))->save();
+
+        (new Spot([
+            'regional_id' => 1,
+            'name' => 'Rumah Sakit Putra',
+            'address' => 'Jl Gumiwang',
+            'serve' => 3,
+            'capacity' => 3
+        ]))->save();
+
         (new User([
             'username' => 'heraya',
             'password' => Hash::make("123456")
@@ -89,6 +105,37 @@ class DatabaseSeeder extends Seeder
         (new SpotVaccine([
             'spot_id' => 1,
             'vaccine_id' => 4
+        ]))->save();
+
+
+        (new SpotVaccine([
+            'spot_id' => 2,
+            'vaccine_id' => 1
+        ]))->save();
+        (new SpotVaccine([
+            'spot_id' => 2,
+            'vaccine_id' => 2
+        ]))->save();
+
+        (new SpotVaccine([
+            'spot_id' => 3,
+            'vaccine_id' => 1
+        ]))->save();
+        (new SpotVaccine([
+            'spot_id' => 3,
+            'vaccine_id' => 2
+        ]))->save();
+        (new SpotVaccine([
+            'spot_id' => 3,
+            'vaccine_id' => 3
+        ]))->save();
+        (new SpotVaccine([
+            'spot_id' => 3,
+            'vaccine_id' => 4
+        ]))->save();
+        (new SpotVaccine([
+            'spot_id' => 3,
+            'vaccine_id' => 5
         ]))->save();
 
     }
